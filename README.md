@@ -1,64 +1,47 @@
-# 🎓 New Era University Organizational System
+# New Era University Organizational System
+
+This project implements a hierarchical management system for university structures using the Composite Design Pattern. It allows complex organizational trees—comprising colleges, departments, and individuals—to be managed through a unified interface.
 
 ---
 
-## 📌 Overview
-This project models the organizational structure of a university where units can contain other units or exist independently.
+## System Architecture
 
-The system represents:
-- Colleges
-- Departments
-- Teachers
-- Students
+The following UML diagram illustrates how the system treats individual entities (Leafs) and containers (Composites) uniformly.
 
-Each unit is treated uniformly through a common interface.
+![New Era University UML](./Composite.jpg)
 
----
-
-## 🧩 Design Pattern Used
-### Composite Design Pattern
-
-This pattern allows:
-- Individual objects (**Student, Teacher**)  
-- Groups of objects (**Department, College**)  
-
-to be handled the same way.
+### Core Components
+* **Component (EducationalUnit)**: The common interface defining methods for all units (details, student counts, and budgets).
+* **Composites (College, Department)**: Units that can contain a collection of other EducationalUnit objects.
+* **Leafs (Teacher, Student)**: Basic building blocks that perform specific actions but do not contain other units.
 
 ---
 
-## 🏗️ System Structure
+## Design Pattern Logic
 
-### Components:
-- `EducationalUnit` (Interface)
-- `College` (Composite)
-- `Department` (Composite)
-- `Teacher` (Leaf)
-- `Student` (Leaf)
+By utilizing the Composite Pattern, the system simplifies client code. Whether you are interacting with a single Student or an entire College, you call the same methods (showDetails, getBudget), and the object handles the recursion internally.
 
 ---
 
-## ⚙️ Features
+## Key Features
 
-### ✅ Hierarchical Modeling
-- Colleges can contain departments, teachers, students, and sub-colleges.
-- Departments can contain teachers and students.
+### Hierarchical Recursion
+The system supports deep nesting. For example, a College can contain multiple Departments, which in turn contain Teachers and Students.
 
-### ✅ Student Count Calculation
-- Recursively counts all students inside a structure.
+### Automated Analytics
+* **Student Count**: Automatically traverses the entire tree to provide a total headcount for any given level.
+* **Budget Calculation**:
+    * **Teachers** represent a cost (Salary).
+    * **Students** represent revenue (Tuition Fee).
+    * **Composites** aggregate these values to provide a net financial overview.
 
-### ✅ Budget Calculation
-- **Teacher** → Salary  
-- **Student** → -Tuition Fee  
-- **Department** → Teachers - Students  
-- **College** → Sum of all units  
-
-### ✅ Display Structure
-- Prints all units in an organized format.
+### Organized Reporting
+The showDetails method allows for a structured printout of the entire hierarchy, making it easy to visualize the university's composition.
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
-```bash
-javac *.java
-java Main
+1. **Compile** the source files:
+   ```bash
+   javac *.java
